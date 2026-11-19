@@ -33,6 +33,9 @@ jobs:
         run: |
           python server.py --refresh-once
 
+      - name: Build static relative-strength snapshot
+        run: python build_rs_static.py
+
       - name: Validate generated data
         run: |
           python - <<'PY'
@@ -58,7 +61,7 @@ jobs:
         run: |
           mkdir -p _site/data
           cp dashboard.html _site/index.html
-          cp rs.css rs_module.js _site/
+          cp rs.css rs_module.js rs_prices_template.csv _site/
           cp data/*.json _site/data/
 
       - name: Upload Pages artifact
