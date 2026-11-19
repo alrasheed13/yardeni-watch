@@ -13,7 +13,7 @@
 <div class="previewblock" id="previewBlock"><h2>Live mode is not available inside ChatGPT Preview</h2><div class="sub">This dashboard intentionally makes <b>no external network requests from the browser</b>. Download the ZIP, extract it, and run <code>START_LIVE_DASHBOARD.bat</code>. Your browser will then open a local address such as <code>http://127.0.0.1:8765/</code>.</div><div class="sub" style="margin-top:8px">If you see a network-access popup mentioning TradingView, you are viewing an older cached dashboard, not v10.1.</div></div>
 <div class="grid">
 <section class="card hero"><div class="gauge" id="gauge"><div class="score"><span id="score">—</span><small>/100</small></div></div><div><div class="label" data-i18n="Market regime">Market regime</div><h1 id="regime">Validation pending</h1><div class="sub" id="summary">Daily market regime depends on dated, validated inputs. Historical example values are not scored.</div><div class="score-integrity" id="scoreIntegrity">Checking source completeness ...</div><div class="pills"><span class="pill" id="serverP"><span class="dot"></span><span>Server</span></span><span class="pill" id="yardeniP"><span class="dot"></span><span>Yardeni</span></span><span class="pill" id="treasuryP"><span class="dot"></span><span>Treasury</span></span><span class="pill" id="creditP"><span class="dot"></span><span>Credit</span></span><span class="pill" id="yieldP"><span class="dot"></span><span>Live Yields</span></span><span class="pill" id="breadthP"><span class="dot"></span><span>Breadth</span></span></div></div></section>
-<section class="card statuscard"><h3 data-i18n="Update control">Update control</h3><div class="sub" id="lastUpdate">Waiting for first refresh…</div><div class="source" style="margin-top:12px">Local-only refresh. Public Treasury and FRED requests run on your PC; market prices are end-of-day data, not live quotes. Yardeni fundamentals require dated review. No trading API key needed.</div></section>
+<section class="card statuscard"><h3 data-i18n="Update control">Update control</h3><div class="sub" id="lastUpdate">Waiting for first refresh…</div><div class="source" id="refreshDescription" style="margin-top:12px">Local-only refresh. Public Treasury and FRED requests run on your PC; market prices are end-of-day data, not live quotes. Yardeni fundamentals require dated review. No trading API key needed.</div></section>
 
 <div class="card metric"><div class="label">S&P Forward EPS · Last documented (may be stale)</div><div class="value" id="eps">—</div><div class="meta" id="epsMeta">Loading dated source</div><div class="meta" id="epsTargetMeta" style="margin-top:4px;font-weight:700">Yardeni YE target: $425.00</div></div>
 <div class="card metric"><div class="label">S&P 500 NERI · Last documented</div><div class="value" id="neri">—</div><div class="meta" id="neriMeta">Loading dated source</div></div>
@@ -27,8 +27,8 @@
 <section class="card section"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><div><h2 data-i18n="Fundamental Block">Fundamental Block</h2><div class="sub" data-i18n="AUTO uses the latest verified Yardeni values. Switch to manual only for scenario testing.">AUTO uses the latest verified Yardeni values. Switch to manual only for scenario testing.</div></div><div><button class="btn" id="fundMode" onclick="toggleFundMode()">Mode: AUTO</button></div></div>
 <div class="fundrow"><b>Forward EPS trend</b><select id="epsTrend" disabled onchange="recalc()"><option value="2">Rising strongly</option><option value="1">Rising</option><option value="0">Flat / mixed</option><option value="-2">Falling</option></select><span id="epsNum">$404.84</span><span class="source" id="epsSrc">Yardeni Research</span></div>
 <div class="fundrow"><b>Earnings revisions / NERI</b><select id="revTrend" disabled onchange="recalc()"><option value="2">Strong positive</option><option value="1">Positive</option><option value="0">Mixed</option><option value="-2">Negative</option></select><span id="neriNum">+8.3%</span><span class="source" id="neriSrc">Yardeni Research</span></div>
-<div class="fundrow"><b>Forward profit margin</b><input id="marginInput" type="number" step="0.1" value="16.5" disabled onchange="recalc()"><span>%</span><span class="source" id="marginSrc">Yardeni Research</span></div>
-<div class="fundrow"><b>Forward P/E</b><input id="fpeInput" type="number" step="0.1" value="18.9" disabled onchange="recalc()"><span>x</span><span class="source" id="fpeSrc">Yardeni Research</span></div></section>
+<div class="fundrow"><b>Forward profit margin</b><input id="marginInput" type="number" step="0.1" placeholder="Missing" disabled onchange="recalc()"><span>%</span><span class="source" id="marginSrc">Yardeni Research</span></div>
+<div class="fundrow"><b>Forward P/E</b><input id="fpeInput" type="number" step="0.1" placeholder="Missing" disabled onchange="recalc()"><span>x</span><span class="source" id="fpeSrc">Yardeni Research</span></div></section>
 
 <section class="card half"><h2 data-i18n="Rates & credit">Rates & credit</h2><table class="table"><tr><th>Input</th><th>Value</th><th>Status</th></tr><tr><td>10Y Treasury</td><td id="t10table">—</td><td id="t10status">Warning</td></tr><tr><td>30Y Treasury</td><td id="t30table">—</td><td id="t30status">Elevated</td></tr><tr><td>HY OAS</td><td id="hytable">—</td><td id="hystatus">Healthy</td></tr><tr><td>IG OAS</td><td id="igtable">—</td><td id="igstatus">Healthy</td></tr><tr><td>WTI</td><td id="wtitable">—</td><td id="wtistatus">Daily</td></tr></table></section>
 <section class="card half"><h2 data-i18n="Breadth (dated, reviewed)">Breadth (dated, reviewed)</h2><div class="sub" data-i18n="Requires dated source-reviewed readings; not a reliable automatic public API.">Requires dated source-reviewed readings; not a reliable automatic public API.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px"><label>S&P > 50DMA<br><input id="b50" type="number" value="28" min="0" max="100" onchange="breadthChanged()"> %</label><label>S&P > 200DMA<br><input id="b200" type="number" value="50" min="0" max="100" onchange="breadthChanged()"> %</label></div><div class="source" id="breadthMeta" style="margin-top:12px">Latest dated S&amp;P 500 breadth observation · editable</div><div class="source" id="breadthAD" style="margin-top:5px"></div></section>
@@ -101,9 +101,9 @@ function trendFromNeri(n){return !Number.isFinite(n)?0:n>=5?2:n>0?1:n>-5?0:-2}
 function render(d){DATA=d;let y=d.yardeni||{},t=d.treasury||{},my=d.market_yields||{},c=d.credit||{},o=d.oil||{},b=d.breadth||{},m=d.market||{};
  pill('yardeniP',y.status);pill('treasuryP',t.status);pill('creditP',c.status);pill('yieldP',my.status);pill('breadthP',b.status);pill('serverP','fresh');
  document.getElementById('eps').textContent=fmt(y.forward_eps,2);document.getElementById('neri').textContent=(+y.neri>=0?'+':'')+fmt(y.neri,1,'%');document.getElementById('margin').textContent=fmt(y.margin,1,'%');document.getElementById('fpe').textContent=fmt(y.forward_pe,1,'x');
- document.getElementById('epsMeta').textContent=`${(y.metric_status?.forward_eps||y.status||'verified').toUpperCase()} · ${y.metric_asof?.forward_eps||y.asof||'n/a'} · current, not target`; document.getElementById('epsTargetMeta').textContent='Yardeni YE target: $'+fmt(y.forward_eps_target,2); document.getElementById('neriMeta').textContent=`${(y.metric_status?.neri||y.status||'verified').toUpperCase()} · ${y.metric_asof?.neri||y.asof||'n/a'} · S&P 500 NERI`; document.getElementById('marginMeta').textContent=`${(y.metric_status?.margin||y.status||'verified').toUpperCase()} · ${y.metric_asof?.margin||y.asof||'n/a'}`; document.getElementById('fpeMeta').textContent=`${(y.metric_status?.forward_pe||y.status||'verified').toUpperCase()} · ${y.metric_asof?.forward_pe||y.asof||'n/a'} · S&P 500`; 
+ document.getElementById('epsMeta').textContent=`${(y.metric_status?.forward_eps||y.status||'verified').toUpperCase()} · ${y.metric_asof?.forward_eps||y.asof||'n/a'} · current, not target`; document.getElementById('epsTargetMeta').textContent=y.forward_eps_target!=null?'Yardeni YE target:  document.getElementById('neriMeta').textContent=`${(y.metric_status?.neri||y.status||'verified').toUpperCase()} · ${y.metric_asof?.neri||y.asof||'n/a'} · S&P 500 NERI`; document.getElementById('marginMeta').textContent=`${(y.metric_status?.margin||y.status||'verified').toUpperCase()} · ${y.metric_asof?.margin||y.asof||'n/a'}`; document.getElementById('fpeMeta').textContent=`${(y.metric_status?.forward_pe||y.status||'verified').toUpperCase()} · ${y.metric_asof?.forward_pe||y.asof||'n/a'} · S&P 500`; 
  let useY2=my.y2!=null&&Number.isFinite(+my.y2)?+my.y2:t.y2,useY10=my.y10!=null&&Number.isFinite(+my.y10)?+my.y10:t.y10; document.getElementById('y2').textContent=fmt(useY2,2,'%');document.getElementById('y10').textContent=fmt(useY10,2,'%');document.getElementById('y30').textContent=fmt(t.y30,2,'%');document.getElementById('hy').textContent=fmt(c.hy,2,'%');document.getElementById('y2Meta').textContent=my.y2!=null&&Number.isFinite(+my.y2)?statusMeta(my):statusMeta(t);document.getElementById('y10Meta').textContent=my.y10!=null&&Number.isFinite(+my.y10)?statusMeta(my):statusMeta(t);document.getElementById('y30Meta').textContent=statusMeta(t);document.getElementById('hyMeta').textContent=statusMeta(c); DATA.effectiveYields={y2:useY2,y10:useY10,y30:t.y30};
- if(FUND==='auto'){document.getElementById('epsTrend').value=String(y.eps_trend??1);document.getElementById('revTrend').value=String(trendFromNeri(+y.neri));document.getElementById('marginInput').value=y.margin??16.5;document.getElementById('fpeInput').value=y.forward_pe??18.9}
+ if(FUND==='auto'){document.getElementById('epsTrend').value=String(y.eps_trend??1);document.getElementById('revTrend').value=String(trendFromNeri(+y.neri));document.getElementById('marginInput').value=(y.margin!=null&&Number.isFinite(+y.margin))?y.margin:'';document.getElementById('fpeInput').value=(y.forward_pe!=null&&Number.isFinite(+y.forward_pe))?y.forward_pe:''}
  document.getElementById('epsNum').textContent='$'+fmt(y.forward_eps,2);document.getElementById('neriNum').textContent=(+y.neri>=0?'+':'')+fmt(y.neri,1,'%');document.getElementById('epsSrc').textContent=statusMeta(y);document.getElementById('neriSrc').textContent=statusMeta(y);document.getElementById('marginSrc').textContent=statusMeta(y);document.getElementById('fpeSrc').textContent=statusMeta(y);
  document.getElementById('t10table').textContent=fmt(t.y10,2,'%');document.getElementById('t30table').textContent=fmt(t.y30,2,'%');document.getElementById('hytable').textContent=fmt(c.hy,2,'%');document.getElementById('igtable').textContent=fmt(c.ig,2,'%');document.getElementById('wtitable').textContent=o.wti!=null&&Number.isFinite(+o.wti)?'$'+fmt(o.wti,2):'—';
  document.getElementById('b50').value=b.above50??'';document.getElementById('b200').value=b.above200??'';document.getElementById('breadthMeta').textContent=statusMeta(b)+(b.public_date_label?' · '+b.public_date_label:''); let adv=b.advancing!=null?+b.advancing:NaN,dec=b.declining!=null?+b.declining:NaN;document.getElementById('breadthAD').textContent=(Number.isFinite(adv)&&Number.isFinite(dec))?`Adv ${adv} / Dec ${dec} · A/D ${dec? (adv/dec).toFixed(2):'—'}`:'';
@@ -204,6 +204,150 @@ const SEED_DATA={yardeni:{forward_eps:404.84,forward_eps_target:425,neri:8.3,mar
 if(STATIC_PAGES){
  document.getElementById('previewBlock').style.display='none';
  document.getElementById('modeText').textContent='GitHub Pages · scheduled official/public data snapshots';
+ document.getElementById('refreshDescription').textContent='GitHub Actions collects public Treasury, FRED, ETF and Yardeni RSS data on a schedule. Update now reloads the latest published snapshot, not live market quotes. Missing Yardeni fundamentals remain unavailable until a dated verified source is provided.';
+ document.querySelector('.topbar .actions .primary .txt').textContent='Reload published data';
+ loadPublishedSnapshot();
+ setInterval(loadPublishedSnapshot,10*60*1000);
+}else if(!LOCAL_LIVE){document.body.classList.add('preview-mode');log('Preview/offline mode: browser network calls are disabled by design.');pill('serverP','missing');document.getElementById('lastUpdate').textContent='Preview mode · live updates disabled · run START_LIVE_DASHBOARD.bat';DATA=SEED_DATA;render(DATA)}else{document.getElementById('previewBlock').style.display='none';refreshAll(false);setInterval(()=>refreshAll(false),10*60*1000)}
+</script><script src="rs_module.js" defer></script>
+<script>
+async function refreshQuickTakes(){
+  const meta=document.getElementById('qtMeta'),list=document.getElementById('qtList');
+  if(!['localhost','127.0.0.1'].includes(location.hostname) && !(typeof STATIC_PAGES!=='undefined'&&STATIC_PAGES)){
+    meta.textContent='Offline preview. Run START_LIVE_DASHBOARD.bat for the RSS feed.';
+    list.textContent='No network requests from ChatGPT Preview.';return;
+  }
+  try{
+    const res=await fetch(STATIC_PAGES?'data/yardeni_feed.json':'/api/yardeni/feed',{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);
+    const data=await res.json();
+    const isArabic=document.documentElement.lang==='ar';
+    meta.textContent=(data.status||'missing').toUpperCase()+' · '+(data.checked_at||'No successful download')+
+      (data.last_error?' · '+data.last_error:'')+' · '+(data.source||'');
+    meta.classList.toggle('qt-stale',data.status!=='fresh');
+    list.replaceChildren();
+    if(!Array.isArray(data.items)||!data.items.length){
+      list.textContent=isArabic?'لا توجد نتائج RSS موثقة بعد. تحقق من الاتصال أو اضغط Update now.':
+        'No verified public RSS items yet. Check connectivity or click Update now.';return;
+    }
+    for(const post of data.items.slice(0,10)){
+      let u;try{u=new URL(post.url)}catch{continue}
+      if(u.protocol!=='https:'||!['www.yardeniquicktakes.com','yardeniquicktakes.com'].includes(u.hostname))continue;
+      const item=document.createElement('div');item.className='qt-item';
+      const a=document.createElement('a');a.href=u.toString();a.target='_blank';a.rel='noopener noreferrer';a.textContent=post.title||'Untitled';item.appendChild(a);
+      const info=document.createElement('div');info.className='qt-info';
+      info.textContent=(post.published||'Date unknown')+' · '+(post.access||'Access unknown');item.appendChild(info);
+      if(post.summary){const blurb=document.createElement('p');blurb.textContent=post.summary;item.appendChild(blurb)}
+      list.appendChild(item);
+    }
+  }catch(e){meta.textContent='Feed unavailable: '+e.message;meta.classList.add('qt-stale')}
+}
+setTimeout(refreshQuickTakes,1500);
+if(['localhost','127.0.0.1'].includes(location.hostname) || STATIC_PAGES)setInterval(refreshQuickTakes,10*60*1000);
+</script></body></html>
++fmt(y.forward_eps_target,2):'Yardeni YE target: unavailable'; document.getElementById('neriMeta').textContent=`${(y.metric_status?.neri||y.status||'verified').toUpperCase()} · ${y.metric_asof?.neri||y.asof||'n/a'} · S&P 500 NERI`; document.getElementById('marginMeta').textContent=`${(y.metric_status?.margin||y.status||'verified').toUpperCase()} · ${y.metric_asof?.margin||y.asof||'n/a'}`; document.getElementById('fpeMeta').textContent=`${(y.metric_status?.forward_pe||y.status||'verified').toUpperCase()} · ${y.metric_asof?.forward_pe||y.asof||'n/a'} · S&P 500`; 
+ let useY2=my.y2!=null&&Number.isFinite(+my.y2)?+my.y2:t.y2,useY10=my.y10!=null&&Number.isFinite(+my.y10)?+my.y10:t.y10; document.getElementById('y2').textContent=fmt(useY2,2,'%');document.getElementById('y10').textContent=fmt(useY10,2,'%');document.getElementById('y30').textContent=fmt(t.y30,2,'%');document.getElementById('hy').textContent=fmt(c.hy,2,'%');document.getElementById('y2Meta').textContent=my.y2!=null&&Number.isFinite(+my.y2)?statusMeta(my):statusMeta(t);document.getElementById('y10Meta').textContent=my.y10!=null&&Number.isFinite(+my.y10)?statusMeta(my):statusMeta(t);document.getElementById('y30Meta').textContent=statusMeta(t);document.getElementById('hyMeta').textContent=statusMeta(c); DATA.effectiveYields={y2:useY2,y10:useY10,y30:t.y30};
+ if(FUND==='auto'){document.getElementById('epsTrend').value=String(y.eps_trend??1);document.getElementById('revTrend').value=String(trendFromNeri(+y.neri));document.getElementById('marginInput').value=(y.margin!=null&&Number.isFinite(+y.margin))?y.margin:'';document.getElementById('fpeInput').value=(y.forward_pe!=null&&Number.isFinite(+y.forward_pe))?y.forward_pe:''}
+ document.getElementById('epsNum').textContent='$'+fmt(y.forward_eps,2);document.getElementById('neriNum').textContent=(+y.neri>=0?'+':'')+fmt(y.neri,1,'%');document.getElementById('epsSrc').textContent=statusMeta(y);document.getElementById('neriSrc').textContent=statusMeta(y);document.getElementById('marginSrc').textContent=statusMeta(y);document.getElementById('fpeSrc').textContent=statusMeta(y);
+ document.getElementById('t10table').textContent=fmt(t.y10,2,'%');document.getElementById('t30table').textContent=fmt(t.y30,2,'%');document.getElementById('hytable').textContent=fmt(c.hy,2,'%');document.getElementById('igtable').textContent=fmt(c.ig,2,'%');document.getElementById('wtitable').textContent=o.wti!=null&&Number.isFinite(+o.wti)?'$'+fmt(o.wti,2):'—';
+ document.getElementById('b50').value=b.above50??'';document.getElementById('b200').value=b.above200??'';document.getElementById('breadthMeta').textContent=statusMeta(b)+(b.public_date_label?' · '+b.public_date_label:''); let adv=b.advancing!=null?+b.advancing:NaN,dec=b.declining!=null?+b.declining:NaN;document.getElementById('breadthAD').textContent=(Number.isFinite(adv)&&Number.isFinite(dec))?`Adv ${adv} / Dec ${dec} · A/D ${dec? (adv/dec).toFixed(2):'—'}`:'';
+ let q=m.quotes||{};for(let s of ['SPY','QQQ','IWM','USO']){let z=q[s]||{};document.getElementById(s.toLowerCase()).textContent=Number.isFinite(+z.price)?fmt(z.price,2):'—';document.getElementById(s.toLowerCase()+'Pct').textContent=Number.isFinite(+z.pct)?((+z.pct>=0?'+':'')+fmt(z.pct,2,'%')):'—'}document.getElementById('marketMeta').textContent=statusMeta(m);
+ recalc();}
+function scoreModel(){
+  const y=DATA?.yardeni||{},t=DATA?.treasury||{},c=DATA?.credit||{},o=DATA?.oil||{},b=DATA?.breadth||{};
+  const reasons=[];
+  const recent=(date,max)=>{if(!date)return false;const age=(Date.now()-new Date(date+'T12:00:00Z').getTime())/86400000;return age>=-1&&age<=max;};
+  const valid=x=>x!==null&&x!==undefined&&x!==''&&Number.isFinite(+x);
+  // In AUTO mode every critical market input needs a source date and valid data.
+  if(FUND==='auto'){
+    for(const [field,days] of [['forward_eps',14],['neri',45],['margin',30],['forward_pe',14]]){
+      const metricDate=y.metric_asof?.[field]||y.asof;
+      if(!valid(y[field])||!recent(metricDate,days))reasons.push('Yardeni '+field+' (missing or stale)');
+    }
+    if(!recent(t.asof,5)||!valid(t.y10)||!valid(t.y30))reasons.push('Treasury (missing or stale)');
+    if(!recent(c.asof,7)||!valid(c.hy)||!valid(c.ig))reasons.push('Credit (missing or stale)');
+    if(!recent(o.asof,7)||!valid(o.wti))reasons.push('WTI (missing or stale)');
+    if(!recent(b.asof,5)||!valid(b.above50)||!valid(b.above200))reasons.push('Breadth (missing or stale)');
+  }
+  const epsT=Number(document.getElementById('epsTrend').value),rev=Number(document.getElementById('revTrend').value);
+  const margin=Number(document.getElementById('marginInput').value),fpe=Number(document.getElementById('fpeInput').value);
+  const y10=DATA?.effectiveYields?.y10??t.y10, y30=t.y30,hy=c.hy,ig=c.ig,wti=o.wti;
+  const b50=document.getElementById('b50').value,b200=document.getElementById('b200').value;
+  if(![margin,fpe,y10,y30,hy,ig,wti,b50,b200].every(valid))reasons.push('Missing numerical inputs');
+  if(reasons.length)return {s:null,parts:[],reason:reasons.join(' · ')};
+  let s=50,parts=[];let add=(n,l)=>{s+=n;parts.push([l,n])};
+  add(epsT===2?8:epsT===1?4:epsT===0?0:-8,'EPS trend');
+  add(rev===2?8:rev===1?4:rev===0?0:-8,'NERI');
+  add(margin>=16?5:margin>=14?3:margin>=12?0:-3,'Margin');
+  add(fpe<=18?4:fpe<=20?2:fpe<=22?-2:-5,'Forward P/E');
+  add(y10<4.5?8:y10<4.8?4:y10<5?-2:y10<5.15?-7:-10,'10Y');
+  add(y30<5?3:y30<=5.25?0:-4,'30Y');
+  add(hy<3?6:hy<3.5?2:hy<4.5?-4:-10,'HY spread');
+  add(ig<1?3:ig<1.25?0:-4,'IG spread');
+  const breadth=(Number(b50)+Number(b200))/2;
+  add(breadth>=65?6:breadth>=50?2:breadth>=40?-2:-6,'Breadth');
+  add(wti<85?4:wti<95?0:wti<105?-3:-6,'WTI');
+  return {s:Math.max(0,Math.min(100,Math.round(s))),parts,reason:''};
+}
+function regime(s){return s>=85?'Strong Risk-On':s>=75?'Bullish / Selective Long':s>=65?'Mixed / Macro Warning':s>=55?'Defensive / Selective Long':'Risk-Off / Capital Preservation'}
+function recalc(){
+ if(!DATA)return;
+ const result=scoreModel(),s=result.s;
+ const score=document.getElementById('score'),reg=document.getElementById('regime');
+ score.textContent=s===null?'—':s;
+ reg.textContent=s===null?'Unrated · Data incomplete':regime(s);
+ const integrity=document.getElementById('scoreIntegrity');
+ integrity.textContent=s===null?'NOT RATED: '+result.reason:(FUND==='manual'?'SCENARIO ONLY · Not a live market rating':'Experimental v9 score · Validated input dates; not official Yardeni Research rating');
+ const color=s===null?'var(--muted)':s>=80?'var(--green)':s>=65?'var(--yellow)':s>=55?'var(--orange)':'var(--red)';
+ document.getElementById('gauge').style.background=`conic-gradient(${color} 0 ${s??0}%,var(--line) ${s??0}% 100%)`;
+ const t=DATA.treasury||{},c=DATA.credit||{},y=DATA.yardeni||{},ey=DATA.effectiveYields||{};
+ const y10eff=ey.y10??t.y10;
+ document.getElementById('t10status').textContent=y10eff==null?'Not available':y10eff>=5?'Danger':y10eff>=4.8?'Warning':'Supportive';
+ document.getElementById('t30status').textContent=t.y30==null?'Not available':t.y30>5.25?'Elevated':'Normal';
+ document.getElementById('hystatus').textContent=c.hy==null?'Not available':c.hy>=3.5?'Elevated (level)':'Below warning level';
+ document.getElementById('igstatus').textContent=c.ig==null?'Not available':c.ig>=1.25?'Elevated':'Below warning level';
+ const fresh=(x,d)=>{if(!x)return false;let days=(Date.now()-new Date(x+'T12:00:00Z').getTime())/86400000;return days>=-1&&days<=d};
+ const epsok=fresh(y.metric_asof?.forward_eps,14),neriok=fresh(y.metric_asof?.neri,45),rateok=fresh(t.asof,5),creditok=fresh(c.asof,7);
+ const falling=epsok?(+document.getElementById('epsTrend').value<0):null;
+ const weak=neriok&&typeof y.neri_previous==='number' ? (y.neri<0||y.neri_previous-y.neri>=2):null;
+ const ten=rateok&&y10eff!=null ? y10eff>5:null;
+ const hyw=creditok&&typeof c.hy_delta10==='number' ? c.hy_delta10>=.25:null;
+ const flags=[falling,weak,ten,hyw];
+ for(const [i,v] of flags.entries()){
+    let el=document.getElementById('d'+(i+1));el.textContent=v===null?'UNKNOWN':v?'YES':'NO';
+    el.className=v===null?'warn':v?'bad':'good';
+ }
+ const known=flags.filter(x=>x!==null).length;
+ document.getElementById('dangerCount').textContent=flags.filter(Boolean).length+' / 4 · '+known+'/4 evaluated';
+ document.getElementById('scoreExplain').innerHTML=s===null?'<span class="warn">Data gate blocked current score. The original v9 model would otherwise silently score stale values.</span>':
+ result.parts.map(([l,n])=>`<span class="badge ${n>0?'good':n<0?'bad':''}">${l}: ${n>0?'+':''}${n}</span>`).join(' ');
+}
+async function refreshAll(force=false){if(typeof STATIC_PAGES!=='undefined'&&STATIC_PAGES)return loadPublishedSnapshot();let key='';log('Refresh requested'+(force?' (forced)':'')+'…');try{let res=await fetch('/api/snapshot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apikey:key,force,refresh:true})});if(!res.ok)throw Error('HTTP '+res.status);let j=await res.json();if(!j.ok)throw Error(j.error||'snapshot failed');render(j.data);document.getElementById('lastUpdate').textContent=(j.refreshing?'Refreshing in background · showing saved data · ':'Updated ')+new Date(j.generated_at).toLocaleString();if(j.refreshing){log('Background refresh running; dashboard remains usable.');window.ydPoll=0;setTimeout(peekSnapshot,4000)}else{for(let [k,v] of Object.entries(j.data))log(`${k}: ${(v.status||'unknown').toUpperCase()}${v.error?' · '+v.error:''}`)}}catch(e){pill('serverP','missing');log('SERVER ERROR: '+e.message);document.getElementById('lastUpdate').textContent='Local server unavailable. Start start_dashboard.bat.'}}
+async function peekSnapshot(){try{let r=await fetch('/api/snapshot?peek=1',{cache:'no-store'});let j=await r.json();if(j.ok){render(j.data);document.getElementById('lastUpdate').textContent=(j.refreshing?'Still refreshing · ':'Updated ')+new Date(j.generated_at).toLocaleString();if(j.refreshing && (window.ydPoll=(window.ydPoll||0)+1)<16)setTimeout(peekSnapshot,5000);if(!j.refreshing){log('Background refresh finished.');for(let [k,v] of Object.entries(j.data))log(`${k}: ${(v.status||'unknown').toUpperCase()}${v.error?' · '+v.error:''}`)}}}catch(e){log('Peek failed: '+e.message)}}
+async function selfCheck(){log('Self-check…');if(typeof STATIC_PAGES!=='undefined'&&STATIC_PAGES){await loadPublishedSnapshot();if(DATA){for(let [k,v] of Object.entries(DATA))if(v&&typeof v==='object'&&v.status)log(k+': '+v.status+' · '+(v.asof||'no date'));}return;}try{let r=await fetch('/health');let j=await r.json();log(`Server ${j.version}: OK`)}catch(e){log('Server: FAIL '+e.message)}if(DATA){for(let k of ['yardeni','market_yields','treasury','credit','oil','breadth','market'])log(`${k}: ${DATA[k]?.status||'missing'} · ${DATA[k]?.asof||'no date'}`)}}
+applyLang();setFundMode();
+const LOCAL_LIVE=(location.hostname==='127.0.0.1'||location.hostname==='localhost');
+const STATIC_PAGES=(location.hostname==='alrasheed13.github.io' && location.pathname.startsWith('/yardeni-watch/'));
+async function loadPublishedSnapshot(){
+  try {
+    const res=await fetch('data/snapshot_cache.json',{cache:'no-store'});
+    if(!res.ok)throw Error('HTTP '+res.status);
+    const payload=await res.json();
+    if(!payload || typeof payload!=='object' || !payload.treasury || !payload.credit)throw Error('Invalid published snapshot');
+    render(payload);
+    document.getElementById('lastUpdate').textContent='Published snapshot · generated '+(payload.generated_at||'unknown')+' · reload for latest scheduled update';
+    log('GitHub Pages snapshot loaded: '+(payload.generated_at||'unknown'));
+  } catch(e){
+    pill('serverP','missing');
+    document.getElementById('lastUpdate').textContent='Published data unavailable: '+e.message;
+    log('Published snapshot ERROR: '+e.message);
+  }
+}
+
+const SEED_DATA={yardeni:{forward_eps:404.84,forward_eps_target:425,neri:8.3,margin:16.5,forward_pe:18.9,eps_trend:2,status:'seed',asof:'2026-09-21',source:'Yardeni Research',metric_asof:{forward_eps:'2026-09-18',neri:'2026-09-02',margin:'2026-09-18',forward_pe:'2026-09-20'},metric_status:{forward_eps:'stale',neri:'stale',margin:'stale',forward_pe:'stale'}},market_yields:{y2:4.67,y10:4.94,status:'seed',asof:'2026-09-21',source:'Yardeni market ticker'},treasury:{y2:4.76,y10:5.01,y30:5.34,status:'seed',asof:'2026-09-18',source:'U.S. Treasury official close'},credit:{hy:2.70,ig:.78,status:'seed',asof:'2026-09-17',source:'ICE BofA/FRED'},oil:{wti:107.02,status:'seed',asof:'2026-09-18',source:'FRED WTI spot'},breadth:{above20:6,above50:28,above200:49.5,advancing:150,declining:353,status:'seed',asof:'2026-09-18',source:'breadth.app + Investing.com'},market:{quotes:{},status:'missing',source:'Optional Twelve Data'}};
+if(STATIC_PAGES){
+ document.getElementById('previewBlock').style.display='none';
+ document.getElementById('modeText').textContent='GitHub Pages · scheduled official/public data snapshots';
+ document.getElementById('refreshDescription').textContent='GitHub Actions collects public Treasury, FRED, ETF and Yardeni RSS data on a schedule. Update now reloads the latest published snapshot, not live market quotes. Missing Yardeni fundamentals remain unavailable until a dated verified source is provided.';
  document.querySelector('.topbar .actions .primary .txt').textContent='Reload published data';
  loadPublishedSnapshot();
  setInterval(loadPublishedSnapshot,10*60*1000);
