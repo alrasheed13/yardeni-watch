@@ -6,6 +6,8 @@
   const COLORS = {XHB:'#3b82f6',XRT:'#ef5b66',IYT:'#21a675'};
   const LABELS = {XHB:'Housing',XRT:'Retail',IYT:'Transportation'};
   let current=null, busy=false, triedAuto=false;
+  const staticPages=(location.hostname==='alrasheed13.github.io' && location.pathname.startsWith('/yardeni-watch/'));
+  const staticSnapshot='data/rs_static.json';
   function modeLang(){return (typeof LANG!=='undefined' && LANG==='ar')?'ar':'en'}
   function msg(en,ar){return modeLang()==='ar'?ar:en}
   function text(id,v){let el=$(id);if(el)el.textContent=v}
@@ -25,10 +27,11 @@
   async function getCurrent(){
     if(busy)return;
     const args=new URLSearchParams({base:$('rsBase').value,ma_len:$('rsEma').value});
-    try{const res=await fetch('/api/rs?'+args,{cache:'no-store'});const j=await res.json();parseResponse(j)}
+    try{const res=await fetch(staticPages?staticSnapshot:'/api/rs?'+args,{cache:'no-store'});const j=await res.json();parseResponse(j)}
     catch(e){sourceLabel({status:'missing'});setError(e.message);resetStats();if(!triedAuto&&['127.0.0.1','localhost'].includes(location.hostname)){triedAuto=true;refresh();}}
   }
   async function refresh(){
+    if(staticPages){await getCurrent();text('rsActionNote',msg('Loaded the latest scheduled published ETF snapshot.','تم تحميل أحدث بيانات الصناديق المنشورة.'));return;}
     if(busy)return;busy=true;$('rsRefresh').disabled=true;setError('');text('rsActionNote',msg('Fetching adjusted end-of-day ETF history...','جلب أسعار الإغلاق المعدلة...'));
     try{
       const resp=await fetch('/api/rs/refresh',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -57,6 +60,7 @@
     return output;
   }
   async function importCSV(file){
+    if(staticPages){setError(msg('CSV imports require the local server.','استيراد CSV يتطلب الخادم المحلي.'));return;}
     if(!file)return;
     busy=true;setError('');text('rsActionNote',msg('Validating local CSV...','التحقق من CSV المحلي...'));
     try{
@@ -169,5 +173,6 @@
   for(let id of ['rsPeriod','rsShowEMA'])$(id).addEventListener('change',draw);
   window.applyRSLanguage();
   const isLocal=['127.0.0.1','localhost'].includes(location.hostname);
-  if(isLocal)getCurrent();else {resetStats();setError(msg('Use the Windows local server to load ETF history.','شغّل السيرفر المحلي على Windows لتحديث سجل الصناديق.'))}
+  if(staticPages){$('rsBase').value='SPY';$('rsEma').value='21';$('rsBase').disabled=true;$('rsEma').disabled=true;$('rsImport').disabled=true;text('rsActionNote',msg('Published snapshot: SPY baseline, EMA 21. Other settings require local mode.','البيانات المنشورة: SPY ومتوسط 21 يومًا. الإعدادات الأخرى تتطلب التشغيل المحلي.'));getCurrent();}
+  else if(isLocal)getCurrent();else {resetStats();setError(msg('Use the Windows local server to load ETF history.','شغّل السيرفر المحلي على Windows لتحديث سجل الصناديق.'))}
 })();
