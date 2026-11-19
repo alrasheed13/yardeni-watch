@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yardeni Market Dashboard v10.2 · Economic RS + Public Research</title>
+<script>(()=>{try{let t=localStorage.getItem('yd-theme')||((matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light');document.documentElement.classList.toggle('dark',t==='dark');let l=localStorage.getItem('yd-lang')||'en';document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr'}catch(e){}})()</script>
+<style>
+:root{--bg:#f6f8fc;--card:#fff;--text:#101828;--muted:#667085;--line:#e4e7ec;--soft:#f9fafb;--blue:#2563eb;--green:#059669;--yellow:#d97706;--orange:#ea580c;--red:#dc2626;--shadow:0 8px 26px rgba(16,24,40,.06)}html.dark{--bg:#0b1020;--card:#111827;--text:#f8fafc;--muted:#94a3b8;--line:#253049;--soft:#0f172a;--blue:#60a5fa;--green:#34d399;--yellow:#fbbf24;--orange:#fb923c;--red:#fb7185;--shadow:0 12px 34px rgba(0,0,0,.28)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.wrap{max-width:1420px;margin:auto;padding:18px}.topbar{position:sticky;top:8px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:var(--shadow)}.brand{display:flex;align-items:center;gap:10px;font-weight:800}.mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--green));color:#07111f}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:var(--soft);color:var(--text);border-radius:10px;padding:9px 11px;font-weight:700;cursor:pointer}.btn.primary{background:var(--blue);color:#fff;border-color:transparent}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}.hero{grid-column:span 8;display:flex;align-items:center;gap:22px}.statuscard{grid-column:span 4}.gauge{width:138px;height:138px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--yellow) 0 66%,var(--line) 66% 100%);flex:none}.gauge:after{content:"";position:absolute;inset:13px;background:var(--card);border-radius:50%}.score{z-index:1;font-weight:900;font-size:39px}.score small{font-size:12px;color:var(--muted)}h1,h2,h3{margin:0}h1{font-size:30px}.sub{color:var(--muted)}.regime{font-size:18px;font-weight:800;margin-top:4px}.pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:999px;border:1px solid var(--line);font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}.fresh .dot{background:var(--green)}.stale .dot{background:var(--yellow)}.missing .dot{background:var(--red)}.metric{grid-column:span 3;min-height:125px}.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.value{font-weight:900;font-size:28px;margin:6px 0}.meta{font-size:11px;color:var(--muted)}.section{grid-column:span 12}.half{grid-column:span 6}.third{grid-column:span 4}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}.table th{color:var(--muted);font-weight:700}.source{font-size:11px;color:var(--muted)}.badge{font-size:11px;font-weight:800;padding:4px 7px;border-radius:999px;background:var(--soft);border:1px solid var(--line)}.good{color:var(--green)}.warn{color:var(--yellow)}.bad{color:var(--red)}input,select{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:8px 9px;max-width:130px}.fundrow{display:grid;grid-template-columns:1.4fr .8fr .9fr 1.2fr;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.diag{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:11px;font:12px/1.5 ui-monospace,Consolas,monospace;max-height:210px;overflow:auto;white-space:pre-wrap}.dangergrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.dangeritem{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}.footer{color:var(--muted);font-size:12px;margin:14px 0 35px}.apirow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}.apirow input{min-width:240px;direction:ltr}.bar{height:8px;background:var(--line);border-radius:10px;overflow:hidden}.bar span{display:block;height:100%;background:var(--blue)}html[dir="rtl"] .table th,html[dir="rtl"] .table td{text-align:right}html[dir="rtl"] body{font-family:Tahoma,Segoe UI,Arial,sans-serif}@media(max-width:950px){.hero,.statuscard,.metric,.half,.third{grid-column:span 12}.metric{grid-column:span 6}.dangergrid{grid-template-columns:1fr 1fr}.fundrow{grid-template-columns:1fr 1fr}}@media(max-width:600px){.metric{grid-column:span 12}.gauge{width:110px;height:110px}.hero{align-items:flex-start}.topbar{position:static}.dangergrid{grid-template-columns:1fr}.fundrow{grid-template-columns:1fr}.actions .txt{display:none}}
+
+.previewblock{display:none;margin-top:12px;padding:18px;border:2px solid var(--orange);border-radius:16px;background:color-mix(in srgb,var(--orange) 10%,var(--card));box-shadow:var(--shadow)}.previewblock h2{margin-bottom:6px}.previewblock code{direction:ltr;display:inline-block;background:var(--soft);padding:3px 7px;border-radius:7px;border:1px solid var(--line)}body.preview-mode .grid{opacity:.42;pointer-events:none;filter:saturate(.6)}body.preview-mode .previewblock{display:block}body.preview-mode .topbar .actions .primary{display:none}
+.qt-head{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}.qt-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.qt-item{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--soft)}.qt-item a{font-weight:700;text-decoration:none;color:var(--blue)}.qt-item a:hover{text-decoration:underline}.qt-item .qt-info{font-size:11px;color:var(--muted);margin:6px 0}.qt-item p{margin:5px 0 0;color:var(--text);font-size:12px}.qt-stale{color:var(--orange)}@media(max-width:780px){.qt-list{grid-template-columns:1fr}}
+</style><link rel="stylesheet" href="/rs.css"></head><body><div class="wrap">
+<div class="topbar"><div class="brand"><div class="mark">Y</div><div><div id="title">Yardeni Market Dashboard</div><div class="source" id="modeText">v10.2 · Windows safe · economic RS · QuickTakes public RSS</div></div></div><div class="actions"><button class="btn" onclick="toggleLang()" id="langBtn">العربية</button><button class="btn" onclick="toggleTheme()" id="themeBtn">☀ / ☾</button><button class="btn" onclick="selfCheck()">✓ <span class="txt" data-i18n="Self-check">Self-check</span></button><button class="btn primary" onclick="refreshAll(true)">↻ <span data-i18n="Update now">Update now</span></button></div></div>
+<div class="previewblock" id="previewBlock"><h2>Live mode is not available inside ChatGPT Preview</h2><div class="sub">This dashboard intentionally makes <b>no external network requests from the browser</b>. Download the ZIP, extract it, and run <code>START_LIVE_DASHBOARD.bat</code>. Your browser will then open a local address such as <code>http://127.0.0.1:8765/</code>.</div><div class="sub" style="margin-top:8px">If you see a network-access popup mentioning TradingView, you are viewing an older cached dashboard, not v10.1.</div></div>
+<div class="grid">
+<section class="card hero"><div class="gauge" id="gauge"><div class="score"><span id="score">—</span><small>/100</small></div></div><div><div class="label" data-i18n="Market regime">Market regime</div><h1 id="regime">Validation pending</h1><div class="sub" id="summary">Daily market regime depends on dated, validated inputs. Historical example values are not scored.</div><div class="score-integrity" id="scoreIntegrity">Checking source completeness ...</div><div class="pills"><span class="pill" id="serverP"><span class="dot"></span><span>Server</span></span><span class="pill" id="yardeniP"><span class="dot"></span><span>Yardeni</span></span><span class="pill" id="treasuryP"><span class="dot"></span><span>Treasury</span></span><span class="pill" id="creditP"><span class="dot"></span><span>Credit</span></span><span class="pill" id="yieldP"><span class="dot"></span><span>Live Yields</span></span><span class="pill" id="breadthP"><span class="dot"></span><span>Breadth</span></span></div></div></section>
+<section class="card statuscard"><h3 data-i18n="Update control">Update control</h3><div class="sub" id="lastUpdate">Waiting for first refresh…</div><div class="source" style="margin-top:12px">Local-only refresh. Public Treasury and FRED requests run on your PC; market prices are end-of-day data, not live quotes. Yardeni fundamentals require dated review. No trading API key needed.</div></section>
+
+<div class="card metric"><div class="label">S&P Forward EPS · Last documented (may be stale)</div><div class="value" id="eps">—</div><div class="meta" id="epsMeta">Loading dated source</div><div class="meta" id="epsTargetMeta" style="margin-top:4px;font-weight:700">Yardeni YE target: $425.00</div></div>
+<div class="card metric"><div class="label">S&P 500 NERI · Last documented</div><div class="value" id="neri">—</div><div class="meta" id="neriMeta">Loading dated source</div></div>
+<div class="card metric"><div class="label">Forward Margin</div><div class="value" id="margin">—</div><div class="meta" id="marginMeta">Loading dated source</div></div>
+<div class="card metric"><div class="label">Forward P/E</div><div class="value" id="fpe">—</div><div class="meta" id="fpeMeta">Loading dated source</div></div>
+<div class="card metric"><div class="label">2Y Treasury · market</div><div class="value" id="y2">—</div><div class="meta" id="y2Meta">Daily</div></div>
+<div class="card metric"><div class="label">10Y Treasury · market</div><div class="value" id="y10">—</div><div class="meta" id="y10Meta">Daily</div></div>
+<div class="card metric"><div class="label">30Y Treasury</div><div class="value" id="y30">—</div><div class="meta" id="y30Meta">Daily</div></div>
+<div class="card metric"><div class="label">HY OAS</div><div class="value" id="hy">—</div><div class="meta" id="hyMeta">Daily</div></div>
+
+<section class="card section"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><div><h2 data-i18n="Fundamental Block">Fundamental Block</h2><div class="sub" data-i18n="AUTO uses the latest verified Yardeni values. Switch to manual only for scenario testing.">AUTO uses the latest verified Yardeni values. Switch to manual only for scenario testing.</div></div><div><button class="btn" id="fundMode" onclick="toggleFundMode()">Mode: AUTO</button></div></div>
+<div class="fundrow"><b>Forward EPS trend</b><select id="epsTrend" disabled onchange="recalc()"><option value="2">Rising strongly</option><option value="1">Rising</option><option value="0">Flat / mixed</option><option value="-2">Falling</option></select><span id="epsNum">$404.84</span><span class="source" id="epsSrc">Yardeni Research</span></div>
+<div class="fundrow"><b>Earnings revisions / NERI</b><select id="revTrend" disabled onchange="recalc()"><option value="2">Strong positive</option><option value="1">Positive</option><option value="0">Mixed</option><option value="-2">Negative</option></select><span id="neriNum">+8.3%</span><span class="source" id="neriSrc">Yardeni Research</span></div>
+<div class="fundrow"><b>Forward profit margin</b><input id="marginInput" type="number" step="0.1" value="16.5" disabled onchange="recalc()"><span>%</span><span class="source" id="marginSrc">Yardeni Research</span></div>
+<div class="fundrow"><b>Forward P/E</b><input id="fpeInput" type="number" step="0.1" value="18.9" disabled onchange="recalc()"><span>x</span><span class="source" id="fpeSrc">Yardeni Research</span></div></section>
+
+<section class="card half"><h2 data-i18n="Rates & credit">Rates & credit</h2><table class="table"><tr><th>Input</th><th>Value</th><th>Status</th></tr><tr><td>10Y Treasury</td><td id="t10table">—</td><td id="t10status">Warning</td></tr><tr><td>30Y Treasury</td><td id="t30table">—</td><td id="t30status">Elevated</td></tr><tr><td>HY OAS</td><td id="hytable">—</td><td id="hystatus">Healthy</td></tr><tr><td>IG OAS</td><td id="igtable">—</td><td id="igstatus">Healthy</td></tr><tr><td>WTI</td><td id="wtitable">—</td><td id="wtistatus">Daily</td></tr></table></section>
+<section class="card half"><h2 data-i18n="Breadth (dated, reviewed)">Breadth (dated, reviewed)</h2><div class="sub" data-i18n="Requires dated source-reviewed readings; not a reliable automatic public API.">Requires dated source-reviewed readings; not a reliable automatic public API.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px"><label>S&P > 50DMA<br><input id="b50" type="number" value="28" min="0" max="100" onchange="breadthChanged()"> %</label><label>S&P > 200DMA<br><input id="b200" type="number" value="50" min="0" max="100" onchange="breadthChanged()"> %</label></div><div class="source" id="breadthMeta" style="margin-top:12px">Latest dated S&amp;P 500 breadth observation · editable</div><div class="source" id="breadthAD" style="margin-top:5px"></div></section>
+
+
+<section class="card section" id="drucken" aria-label="Druckenmiller-inspired economic relative strength">
+  <div class="rs-title-row"><div><h2 id="rsSectionTitle">Druckenmiller Economic Indicator</h2><p id="rsDescription" class="sub" style="margin:6px 0 0">Economic-sensitive ETF relative strength versus SPY.</p></div><span class="rs-pill" id="rsDataStatus">NOT LOADED</span></div>
+  <div class="rs-controls">
+    <label>Baseline ETF<select id="rsBase"><option value="SPY" selected>SPY (S&amp;P 500)</option><option value="QQQ">QQQ (Nasdaq 100)</option><option value="IWM">IWM (Russell 2000)</option></select></label>
+    <label>EMA length (days)<input id="rsEma" type="number" min="1" max="100" value="21" step="1"></label>
+    <label>History window<select id="rsPeriod"><option value="63">3 months</option><option value="126" selected>6 months</option><option value="252">1 year</option><option value="all">All</option></select></label>
+    <label class="rs-check"><input id="rsShowEMA" type="checkbox" checked>Show EMA</label>
+    <button type="button" class="btn primary" id="rsRefresh"><span id="rsRefreshLabel">Refresh ETF history</span></button>
+    <label class="btn" style="cursor:pointer;font-size:12px;color:var(--text);"> <span id="rsImportLabel">Import dated CSV</span><input type="file" id="rsImport" accept=".csv,text/csv" style="position:absolute;opacity:0;width:1px;height:1px;pointer-events:none"></label>
+    <a href="/rs_prices_template.csv" style="font-size:12px">CSV template</a>
+  </div>
+  <div id="rsDataSource" class="rs-source">No ETF history loaded. ETF/SPY ratios require aligned daily completed closes.</div>
+  <div id="rsActionNote" class="rs-muted" style="margin-top:7px"></div>
+  <div id="rsError" class="rs-error" style="display:none" role="alert"></div>
+  <div class="rs-summary">
+     <div class="rs-stat"><div class="label">Weakening sectors</div><strong id="rsWeakCount">—</strong><div class="small">3-day below EMA + EMA falling</div></div>
+     <div class="rs-stat"><div class="label">Leading sectors</div><strong id="rsLeadCount">—</strong><div class="small">3-day above EMA + EMA rising</div></div>
+     <div class="rs-stat"><div class="label">Latest completed session</div><strong id="rsAsOf">—</strong><div class="small"><span id="rsBaselineLabel">SPY</span> / <span id="rsEMALabel">EMA 21</span></div></div>
+  </div>
+  <div class="rs-analysis" id="rsDiagnosis">Pending dated market history</div>
+  <div class="rs-grid">
+     <div class="rs-mini"><div class="rs-mini-top"><h3 style="color:#3b82f6">XHB · Housing</h3><span id="rs-XHB-signal" class="rs-pill">—</span></div><div class="rs-kpis"><div><div class="label">Raw RS ratio</div><b id="rs-XHB-ratio">—</b></div><div><div class="label">20D relative change</div><b id="rs-XHB-perf">—</b></div></div><svg class="rs-svg" id="rs-XHB-svg"></svg></div>
+     <div class="rs-mini"><div class="rs-mini-top"><h3 style="color:#ef5b66">XRT · Retail</h3><span id="rs-XRT-signal" class="rs-pill">—</span></div><div class="rs-kpis"><div><div class="label">Raw RS ratio</div><b id="rs-XRT-ratio">—</b></div><div><div class="label">20D relative change</div><b id="rs-XRT-perf">—</b></div></div><svg class="rs-svg" id="rs-XRT-svg"></svg></div>
+     <div class="rs-mini"><div class="rs-mini-top"><h3 style="color:#21a675">IYT · Transportation</h3><span id="rs-IYT-signal" class="rs-pill">—</span></div><div class="rs-kpis"><div><div class="label">Raw RS ratio</div><b id="rs-IYT-ratio">—</b></div><div><div class="label">20D relative change</div><b id="rs-IYT-perf">—</b></div></div><svg class="rs-svg" id="rs-IYT-svg"></svg></div>
+  </div>
+  <div class="rs-panel"><div class="rs-panel-title"><span id="rsMainTitle">Three-sector relative performance (rebased to 100)</span><span class="rs-muted">Comparison only · separate from main market Score</span></div>
+    <div class="rs-legend"><span><i style="background:#3b82f6"></i>XHB</span><span><i style="background:#ef5b66"></i>XRT</span><span><i style="background:#21a675"></i>IYT</span></div>
+    <svg id="rsCombinedChart" class="rs-svg"></svg></div>
+  <p class="rs-footnote" id="rsMethodNotice">A ratio below its EMA reflects relative underperformance, not proof of institutional distribution.</p>
+  <p class="rs-footnote">Method: Sector adjusted close ÷ benchmark adjusted close; EMA = 21 daily bars by default (SMA initialized); dates intersected, no forward-fill. "Leading" requires 3 consecutive closes above ratio-EMA plus positive 5-session EMA slope; "Weakening" is the inverse. Market divergence is a research warning only. <a href="https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/price-relative-relative-strength" target="_blank" rel="noopener noreferrer">RS methodology</a></p>
+</section>
+
+<section class="card section"><h2>Danger Combination</h2><div class="dangergrid"><div class="dangeritem"><div class="label">Forward EPS falling</div><b id="d1">NO</b></div><div class="dangeritem"><div class="label">NERI weakening</div><b id="d2">NO</b></div><div class="dangeritem"><div class="label">10Y &gt; 5%</div><b id="d3">NO</b></div><div class="dangeritem"><div class="label">HY widening materially</div><b id="d4">NO</b></div></div><div style="margin-top:10px"><b id="dangerCount">0 / 4</b></div></section>
+
+<section class="card half"><h2 data-i18n="Market tape">Market tape</h2><table class="table"><tr><th>Asset</th><th>Price</th><th>Change</th></tr><tr><td>SPY</td><td id="spy">—</td><td id="spyPct">—</td></tr><tr><td>QQQ</td><td id="qqq">—</td><td id="qqqPct">—</td></tr><tr><td>IWM</td><td id="iwm">—</td><td id="iwmPct">—</td></tr><tr><td>USO</td><td id="uso">—</td><td id="usoPct">—</td></tr></table><div class="source" id="marketMeta">No market feed loaded yet</div></section>
+<section class="card half"><h2 data-i18n="Source diagnostics">Source diagnostics</h2><div class="diag" id="diag">Dashboard loaded.\n</div></section>
+
+<section class="card section" id="qtSection">
+  <div class="qt-head">
+    <div><h2 id="qtHeading">Yardeni QuickTakes · Public Research Feed</h2>
+      <p id="qtMethod" class="sub" style="margin:5px 0">Public RSS titles and short previews. Paid articles are not unlocked and RSS text is not used as live EPS/NERI data.</p></div>
+    <a href="https://www.yardeniquicktakes.com/" rel="noopener noreferrer" target="_blank" class="btn">QuickTakes website</a>
+  </div>
+  <div class="source" id="qtMeta">Not loaded yet</div>
+  <div class="qt-list" id="qtList"><p class="sub">Fetching feed from the local server...</p></div>
+  <p class="source" style="margin:12px 0 0">Other primary sources: <a href="https://yardeni.com/research/morning-briefing" target="_blank" rel="noopener noreferrer">Morning Briefing index</a> · <a href="https://www.youtube.com/@YardeniResearch/videos" target="_blank" rel="noopener noreferrer">Yardeni Research videos</a>. No automated paywall bypass.</p>
+</section>
+<section class="card section"><h2 data-i18n="Scoring transparency">Scoring transparency</h2><div class="sub" data-i18n="The score is recalculated from the inputs below. It is a regime framework, not a market forecast.">The score is recalculated from the inputs below. It is a regime framework, not a market forecast.</div><div id="scoreExplain" style="margin-top:10px"></div></section>
+</div><div class="footer">Yardeni Watch v10.2 · User research dashboard, not a Yardeni Research product. No false live claims. Druckenmiller-inspired RS is independent of v9 legacy score.</div></div>
+<script>
+const AR={'Yardeni Market Dashboard':'لوحة يارديني للسوق','Market regime':'حالة السوق','Update control':'التحكم بالتحديث','Self-check':'فحص ذاتي','Update now':'تحديث الآن','Save key':'حفظ المفتاح','Fundamental Block':'الأساسيات','AUTO uses the latest verified Yardeni values. Switch to manual only for scenario testing.':'الوضع التلقائي يستخدم أحدث بيانات يارديني الموثقة. استخدم اليدوي فقط لاختبار السيناريوهات.','Rates & credit':'العوائد والائتمان','Breadth (dated, reviewed)':'اتساع السوق (قراءات مؤرخة)','Requires dated source-reviewed readings; not a reliable automatic public API.':'يبقى اتساع السوق يدويًا لعدم وجود API عام مجاني ومستقر نعتمد عليه.','Market tape':'حركة السوق','Source diagnostics':'تشخيص المصادر','Scoring transparency':'شفافية احتساب الدرجة','The score is recalculated from the inputs below. It is a regime framework, not a market forecast.':'تُعاد حساب الدرجة من المدخلات أدناه. هذه أداة لتحديد حالة السوق وليست توقعًا لحركة السوق.','Market tape is optional. Without a Twelve Data key it is intentionally left unconfigured; Yardeni, yields, Treasury, credit and breadth still update.':'بدون مفتاح API تستخدم أسعار السوق مصدرًا يوميًا بديلًا. يارديني والخزانة والائتمان لا تحتاج مفتاحك.'};
+let LANG=localStorage.getItem('yd-lang')||'en', FUND=localStorage.getItem('yd-fund')||'auto', DATA=null;
+function tr(s){return LANG==='ar'?(AR[s]||s):s}function applyLang(){document.documentElement.lang=LANG;document.documentElement.dir=LANG==='ar'?'rtl':'ltr';document.querySelectorAll('[data-i18n]').forEach(e=>{let k=e.getAttribute('data-i18n');e.textContent=tr(k)});document.getElementById('langBtn').textContent=LANG==='ar'?'English':'العربية';if(window.applyRSLanguage)window.applyRSLanguage();}
+function toggleLang(){LANG=LANG==='en'?'ar':'en';localStorage.setItem('yd-lang',LANG);applyLang()}
+function toggleTheme(){let d=document.documentElement.classList.toggle('dark');localStorage.setItem('yd-theme',d?'dark':'light')}
+function log(s){let e=document.getElementById('diag');e.textContent=`[${new Date().toLocaleTimeString()}] ${s}\n`+e.textContent.slice(0,6000)}
+function pill(id,status){let e=document.getElementById(id);e.classList.remove('fresh','stale','missing');e.classList.add(status==='fresh'||status==='daily'?'fresh':status==='stale'||status==='seed'||status==='manual'||status==='partial'?'stale':'missing')}
+function fmt(v,d=2,s=''){return v!==null&&v!==undefined&&v!==''&&Number.isFinite(+v)?(+v).toFixed(d)+s:'—'}
+function statusMeta(o){return `${(o.status||'unknown').toUpperCase()} · ${o.asof||o.checked_at||'n/a'} · ${o.source||''}`}
+function saveKey(){log('No API key needed for this local-only version.');}
+function setFundMode(){let auto=FUND==='auto';['epsTrend','revTrend','marginInput','fpeInput'].forEach(id=>document.getElementById(id).disabled=auto);document.getElementById('fundMode').textContent=LANG==='ar'?(auto?'الوضع: تلقائي':'الوضع: يدوي'):(auto?'Mode: AUTO':'Mode: MANUAL')}
+function toggleFundMode(){FUND=FUND==='auto'?'manual':'auto';localStorage.setItem('yd-fund',FUND);setFundMode();if(FUND==='auto'&&DATA)render(DATA);recalc()}
+function breadthChanged(){if(DATA){DATA.breadth.above50=+document.getElementById('b50').value;DATA.breadth.above200=+document.getElementById('b200').value;DATA.breadth.status='manual'}recalc()}
+function trendFromNeri(n){return !Number.isFinite(n)?0:n>=5?2:n>0?1:n>-5?0:-2}
+function render(d){DATA=d;let y=d.yardeni||{},t=d.treasury||{},my=d.market_yields||{},c=d.credit||{},o=d.oil||{},b=d.breadth||{},m=d.market||{};
+ pill('yardeniP',y.status);pill('treasuryP',t.status);pill('creditP',c.status);pill('yieldP',my.status);pill('breadthP',b.status);pill('serverP','fresh');
+ document.getElementById('eps').textContent=fmt(y.forward_eps,2);document.getElementById('neri').textContent=(+y.neri>=0?'+':'')+fmt(y.neri,1,'%');document.getElementById('margin').textContent=fmt(y.margin,1,'%');document.getElementById('fpe').textContent=fmt(y.forward_pe,1,'x');
+ document.getElementById('epsMeta').textContent=`${(y.metric_status?.forward_eps||y.status||'verified').toUpperCase()} · ${y.metric_asof?.forward_eps||y.asof||'n/a'} · current, not target`; document.getElementById('epsTargetMeta').textContent='Yardeni YE target: $'+fmt(y.forward_eps_target,2); document.getElementById('neriMeta').textContent=`${(y.metric_status?.neri||y.status||'verified').toUpperCase()} · ${y.metric_asof?.neri||y.asof||'n/a'} · S&P 500 NERI`; document.getElementById('marginMeta').textContent=`${(y.metric_status?.margin||y.status||'verified').toUpperCase()} · ${y.metric_asof?.margin||y.asof||'n/a'}`; document.getElementById('fpeMeta').textContent=`${(y.metric_status?.forward_pe||y.status||'verified').toUpperCase()} · ${y.metric_asof?.forward_pe||y.asof||'n/a'} · S&P 500`; 
+ let useY2=my.y2!=null&&Number.isFinite(+my.y2)?+my.y2:t.y2,useY10=my.y10!=null&&Number.isFinite(+my.y10)?+my.y10:t.y10; document.getElementById('y2').textContent=fmt(useY2,2,'%');document.getElementById('y10').textContent=fmt(useY10,2,'%');document.getElementById('y30').textContent=fmt(t.y30,2,'%');document.getElementById('hy').textContent=fmt(c.hy,2,'%');document.getElementById('y2Meta').textContent=my.y2!=null&&Number.isFinite(+my.y2)?statusMeta(my):statusMeta(t);document.getElementById('y10Meta').textContent=my.y10!=null&&Number.isFinite(+my.y10)?statusMeta(my):statusMeta(t);document.getElementById('y30Meta').textContent=statusMeta(t);document.getElementById('hyMeta').textContent=statusMeta(c); DATA.effectiveYields={y2:useY2,y10:useY10,y30:t.y30};
+ if(FUND==='auto'){document.getElementById('epsTrend').value=String(y.eps_trend??1);document.getElementById('revTrend').value=String(trendFromNeri(+y.neri));document.getElementById('marginInput').value=y.margin??16.5;document.getElementById('fpeInput').value=y.forward_pe??18.9}
+ document.getElementById('epsNum').textContent='$'+fmt(y.forward_eps,2);document.getElementById('neriNum').textContent=(+y.neri>=0?'+':'')+fmt(y.neri,1,'%');document.getElementById('epsSrc').textContent=statusMeta(y);document.getElementById('neriSrc').textContent=statusMeta(y);document.getElementById('marginSrc').textContent=statusMeta(y);document.getElementById('fpeSrc').textContent=statusMeta(y);
+ document.getElementById('t10table').textContent=fmt(t.y10,2,'%');document.getElementById('t30table').textContent=fmt(t.y30,2,'%');document.getElementById('hytable').textContent=fmt(c.hy,2,'%');document.getElementById('igtable').textContent=fmt(c.ig,2,'%');document.getElementById('wtitable').textContent=o.wti!=null&&Number.isFinite(+o.wti)?'$'+fmt(o.wti,2):'—';
+ document.getElementById('b50').value=b.above50??'';document.getElementById('b200').value=b.above200??'';document.getElementById('breadthMeta').textContent=statusMeta(b)+(b.public_date_label?' · '+b.public_date_label:''); let adv=b.advancing!=null?+b.advancing:NaN,dec=b.declining!=null?+b.declining:NaN;document.getElementById('breadthAD').textContent=(Number.isFinite(adv)&&Number.isFinite(dec))?`Adv ${adv} / Dec ${dec} · A/D ${dec? (adv/dec).toFixed(2):'—'}`:'';
+ let q=m.quotes||{};for(let s of ['SPY','QQQ','IWM','USO']){let z=q[s]||{};document.getElementById(s.toLowerCase()).textContent=Number.isFinite(+z.price)?fmt(z.price,2):'—';document.getElementById(s.toLowerCase()+'Pct').textContent=Number.isFinite(+z.pct)?((+z.pct>=0?'+':'')+fmt(z.pct,2,'%')):'—'}document.getElementById('marketMeta').textContent=statusMeta(m);
+ recalc();}
+function scoreModel(){
+  const y=DATA?.yardeni||{},t=DATA?.treasury||{},c=DATA?.credit||{},o=DATA?.oil||{},b=DATA?.breadth||{};
+  const reasons=[];
+  const recent=(date,max)=>{if(!date)return false;const age=(Date.now()-new Date(date+'T12:00:00Z').getTime())/86400000;return age>=-1&&age<=max;};
+  const valid=x=>x!==null&&x!==undefined&&x!==''&&Number.isFinite(+x);
+  // In AUTO mode every critical market input needs a source date and valid data.
+  if(FUND==='auto'){
+    for(const [field,days] of [['forward_eps',14],['neri',45],['margin',30],['forward_pe',14]]){
+      const metricDate=y.metric_asof?.[field]||y.asof;
+      if(!valid(y[field])||!recent(metricDate,days))reasons.push('Yardeni '+field+' (missing or stale)');
+    }
+    if(!recent(t.asof,5)||!valid(t.y10)||!valid(t.y30))reasons.push('Treasury (missing or stale)');
+    if(!recent(c.asof,7)||!valid(c.hy)||!valid(c.ig))reasons.push('Credit (missing or stale)');
+    if(!recent(o.asof,7)||!valid(o.wti))reasons.push('WTI (missing or stale)');
+    if(!recent(b.asof,5)||!valid(b.above50)||!valid(b.above200))reasons.push('Breadth (missing or stale)');
+  }
+  const epsT=Number(document.getElementById('epsTrend').value),rev=Number(document.getElementById('revTrend').value);
+  const margin=Number(document.getElementById('marginInput').value),fpe=Number(document.getElementById('fpeInput').value);
+  const y10=DATA?.effectiveYields?.y10??t.y10, y30=t.y30,hy=c.hy,ig=c.ig,wti=o.wti;
+  const b50=document.getElementById('b50').value,b200=document.getElementById('b200').value;
+  if(![margin,fpe,y10,y30,hy,ig,wti,b50,b200].every(valid))reasons.push('Missing numerical inputs');
+  if(reasons.length)return {s:null,parts:[],reason:reasons.join(' · ')};
+  let s=50,parts=[];let add=(n,l)=>{s+=n;parts.push([l,n])};
+  add(epsT===2?8:epsT===1?4:epsT===0?0:-8,'EPS trend');
+  add(rev===2?8:rev===1?4:rev===0?0:-8,'NERI');
+  add(margin>=16?5:margin>=14?3:margin>=12?0:-3,'Margin');
+  add(fpe<=18?4:fpe<=20?2:fpe<=22?-2:-5,'Forward P/E');
+  add(y10<4.5?8:y10<4.8?4:y10<5?-2:y10<5.15?-7:-10,'10Y');
+  add(y30<5?3:y30<=5.25?0:-4,'30Y');
+  add(hy<3?6:hy<3.5?2:hy<4.5?-4:-10,'HY spread');
+  add(ig<1?3:ig<1.25?0:-4,'IG spread');
+  const breadth=(Number(b50)+Number(b200))/2;
+  add(breadth>=65?6:breadth>=50?2:breadth>=40?-2:-6,'Breadth');
+  add(wti<85?4:wti<95?0:wti<105?-3:-6,'WTI');
+  return {s:Math.max(0,Math.min(100,Math.round(s))),parts,reason:''};
+}
+function regime(s){return s>=85?'Strong Risk-On':s>=75?'Bullish / Selective Long':s>=65?'Mixed / Macro Warning':s>=55?'Defensive / Selective Long':'Risk-Off / Capital Preservation'}
+function recalc(){
+ if(!DATA)return;
+ const result=scoreModel(),s=result.s;
+ const score=document.getElementById('score'),reg=document.getElementById('regime');
+ score.textContent=s===null?'—':s;
+ reg.textContent=s===null?'Unrated · Data incomplete':regime(s);
+ const integrity=document.getElementById('scoreIntegrity');
+ integrity.textContent=s===null?'NOT RATED: '+result.reason:(FUND==='manual'?'SCENARIO ONLY · Not a live market rating':'Experimental v9 score · Validated input dates; not official Yardeni Research rating');
+ const color=s===null?'var(--muted)':s>=80?'var(--green)':s>=65?'var(--yellow)':s>=55?'var(--orange)':'var(--red)';
+ document.getElementById('gauge').style.background=`conic-gradient(${color} 0 ${s??0}%,var(--line) ${s??0}% 100%)`;
+ const t=DATA.treasury||{},c=DATA.credit||{},y=DATA.yardeni||{},ey=DATA.effectiveYields||{};
+ const y10eff=ey.y10??t.y10;
+ document.getElementById('t10status').textContent=y10eff==null?'Not available':y10eff>=5?'Danger':y10eff>=4.8?'Warning':'Supportive';
+ document.getElementById('t30status').textContent=t.y30==null?'Not available':t.y30>5.25?'Elevated':'Normal';
+ document.getElementById('hystatus').textContent=c.hy==null?'Not available':c.hy>=3.5?'Elevated (level)':'Below warning level';
+ document.getElementById('igstatus').textContent=c.ig==null?'Not available':c.ig>=1.25?'Elevated':'Below warning level';
+ const fresh=(x,d)=>{if(!x)return false;let days=(Date.now()-new Date(x+'T12:00:00Z').getTime())/86400000;return days>=-1&&days<=d};
+ const epsok=fresh(y.metric_asof?.forward_eps,14),neriok=fresh(y.metric_asof?.neri,45),rateok=fresh(t.asof,5),creditok=fresh(c.asof,7);
+ const falling=epsok?(+document.getElementById('epsTrend').value<0):null;
+ const weak=neriok&&typeof y.neri_previous==='number' ? (y.neri<0||y.neri_previous-y.neri>=2):null;
+ const ten=rateok&&y10eff!=null ? y10eff>5:null;
+ const hyw=creditok&&typeof c.hy_delta10==='number' ? c.hy_delta10>=.25:null;
+ const flags=[falling,weak,ten,hyw];
+ for(const [i,v] of flags.entries()){
+    let el=document.getElementById('d'+(i+1));el.textContent=v===null?'UNKNOWN':v?'YES':'NO';
+    el.className=v===null?'warn':v?'bad':'good';
+ }
+ const known=flags.filter(x=>x!==null).length;
+ document.getElementById('dangerCount').textContent=flags.filter(Boolean).length+' / 4 · '+known+'/4 evaluated';
+ document.getElementById('scoreExplain').innerHTML=s===null?'<span class="warn">Data gate blocked current score. The original v9 model would otherwise silently score stale values.</span>':
+ result.parts.map(([l,n])=>`<span class="badge ${n>0?'good':n<0?'bad':''}">${l}: ${n>0?'+':''}${n}</span>`).join(' ');
+}
+async function refreshAll(force=false){let key='';log('Refresh requested'+(force?' (forced)':'')+'…');try{let res=await fetch('/api/snapshot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apikey:key,force,refresh:true})});if(!res.ok)throw Error('HTTP '+res.status);let j=await res.json();if(!j.ok)throw Error(j.error||'snapshot failed');render(j.data);document.getElementById('lastUpdate').textContent=(j.refreshing?'Refreshing in background · showing saved data · ':'Updated ')+new Date(j.generated_at).toLocaleString();if(j.refreshing){log('Background refresh running; dashboard remains usable.');window.ydPoll=0;setTimeout(peekSnapshot,4000)}else{for(let [k,v] of Object.entries(j.data))log(`${k}: ${(v.status||'unknown').toUpperCase()}${v.error?' · '+v.error:''}`)}}catch(e){pill('serverP','missing');log('SERVER ERROR: '+e.message);document.getElementById('lastUpdate').textContent='Local server unavailable. Start start_dashboard.bat.'}}
+async function peekSnapshot(){try{let r=await fetch('/api/snapshot?peek=1',{cache:'no-store'});let j=await r.json();if(j.ok){render(j.data);document.getElementById('lastUpdate').textContent=(j.refreshing?'Still refreshing · ':'Updated ')+new Date(j.generated_at).toLocaleString();if(j.refreshing && (window.ydPoll=(window.ydPoll||0)+1)<16)setTimeout(peekSnapshot,5000);if(!j.refreshing){log('Background refresh finished.');for(let [k,v] of Object.entries(j.data))log(`${k}: ${(v.status||'unknown').toUpperCase()}${v.error?' · '+v.error:''}`)}}}catch(e){log('Peek failed: '+e.message)}}
+async function selfCheck(){log('Self-check…');try{let r=await fetch('/health');let j=await r.json();log(`Server ${j.version}: OK`)}catch(e){log('Server: FAIL '+e.message)}if(DATA){for(let k of ['yardeni','market_yields','treasury','credit','oil','breadth','market'])log(`${k}: ${DATA[k]?.status||'missing'} · ${DATA[k]?.asof||'no date'}`)}}
+applyLang();setFundMode();
+const LOCAL_LIVE=(location.hostname==='127.0.0.1'||location.hostname==='localhost');
+const SEED_DATA={yardeni:{forward_eps:404.84,forward_eps_target:425,neri:8.3,margin:16.5,forward_pe:18.9,eps_trend:2,status:'seed',asof:'2026-09-21',source:'Yardeni Research',metric_asof:{forward_eps:'2026-09-18',neri:'2026-09-02',margin:'2026-09-18',forward_pe:'2026-09-20'},metric_status:{forward_eps:'stale',neri:'stale',margin:'stale',forward_pe:'stale'}},market_yields:{y2:4.67,y10:4.94,status:'seed',asof:'2026-09-21',source:'Yardeni market ticker'},treasury:{y2:4.76,y10:5.01,y30:5.34,status:'seed',asof:'2026-09-18',source:'U.S. Treasury official close'},credit:{hy:2.70,ig:.78,status:'seed',asof:'2026-09-17',source:'ICE BofA/FRED'},oil:{wti:107.02,status:'seed',asof:'2026-09-18',source:'FRED WTI spot'},breadth:{above20:6,above50:28,above200:49.5,advancing:150,declining:353,status:'seed',asof:'2026-09-18',source:'breadth.app + Investing.com'},market:{quotes:{},status:'missing',source:'Optional Twelve Data'}};
+if(!LOCAL_LIVE){document.body.classList.add('preview-mode');log('Preview/offline mode: browser network calls are disabled by design.');pill('serverP','missing');document.getElementById('lastUpdate').textContent='Preview mode · live updates disabled · run START_LIVE_DASHBOARD.bat';DATA=SEED_DATA;render(DATA)}else{document.getElementById('previewBlock').style.display='none';refreshAll(false);setInterval(()=>refreshAll(false),10*60*1000)}
+</script><script src="/rs_module.js" defer></script>
+<script>
+async function refreshQuickTakes(){
+  const meta=document.getElementById('qtMeta'),list=document.getElementById('qtList');
+  if(!['localhost','127.0.0.1'].includes(location.hostname)){
+    meta.textContent='Offline preview. Run START_LIVE_DASHBOARD.bat for the RSS feed.';
+    list.textContent='No network requests from ChatGPT Preview.';return;
+  }
+  try{
+    const res=await fetch('/api/yardeni/feed',{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);
+    const data=await res.json();
+    const isArabic=document.documentElement.lang==='ar';
+    meta.textContent=(data.status||'missing').toUpperCase()+' · '+(data.checked_at||'No successful download')+
+      (data.last_error?' · '+data.last_error:'')+' · '+(data.source||'');
+    meta.classList.toggle('qt-stale',data.status!=='fresh');
+    list.replaceChildren();
+    if(!Array.isArray(data.items)||!data.items.length){
+      list.textContent=isArabic?'لا توجد نتائج RSS موثقة بعد. تحقق من الاتصال أو اضغط Update now.':
+        'No verified public RSS items yet. Check connectivity or click Update now.';return;
+    }
+    for(const post of data.items.slice(0,10)){
+      let u;try{u=new URL(post.url)}catch{continue}
+      if(u.protocol!=='https:'||!['www.yardeniquicktakes.com','yardeniquicktakes.com'].includes(u.hostname))continue;
+      const item=document.createElement('div');item.className='qt-item';
+      const a=document.createElement('a');a.href=u.toString();a.target='_blank';a.rel='noopener noreferrer';a.textContent=post.title||'Untitled';item.appendChild(a);
+      const info=document.createElement('div');info.className='qt-info';
+      info.textContent=(post.published||'Date unknown')+' · '+(post.access||'Access unknown');item.appendChild(info);
+      if(post.summary){const blurb=document.createElement('p');blurb.textContent=post.summary;item.appendChild(blurb)}
+      list.appendChild(item);
+    }
+  }catch(e){meta.textContent='Feed unavailable: '+e.message;meta.classList.add('qt-stale')}
+}
+setTimeout(refreshQuickTakes,1500);
+if(['localhost','127.0.0.1'].includes(location.hostname))setInterval(refreshQuickTakes,10*60*1000);
+</script></body></html>

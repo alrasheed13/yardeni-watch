@@ -1,0 +1,7 @@
+# OPTIONAL: only for fallback ETF price retrieval. The local dashboard itself
+# starts and reads CSV/Treasury/FRED without pandas, yfinance, or tzdata.
+# Python 3.15 requires pandas 3.0.6+; pandas 2.3.3 has no CPython 3.15 wheel.
+yfinance>=1.8.0,<2
+pandas>=3.1.1,<4; python_version >= "3.15"
+pandas>=2.3.3,<4; python_version < "3.15"
+tzdata>=2025.2
