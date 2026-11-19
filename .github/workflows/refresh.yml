@@ -1,0 +1,39 @@
+
+name: Yardeni Watch | Refresh and GitHub Pages
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 5 * * 1-5'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: yardeni-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare Pages
+        run: |
+          mkdir -p _site
+          cp dashboard.html _site/index.html
+          cp rs.css rs_module.js _site/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
