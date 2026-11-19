@@ -18,16 +18,48 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Prepare Pages
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Refresh market data
         run: |
-          mkdir -p _site
+          python server.py --refresh-once
+
+      - name: Validate generated data
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          required = [
+              Path("data/snapshot_cache.json"),
+              Path("data/yardeni_feed.json")
+          ]
+
+          for path in required:
+              if not path.is_file():
+                  raise SystemExit(f"Missing: {path}")
+              with path.open(encoding="utf-8") as f:
+                  payload = json.load(f)
+              if not isinstance(payload, dict):
+                  raise SystemExit(f"Invalid JSON: {path}")
+              print(f"Validated: {path}")
+          PY
+
+      - name: Prepare GitHub Pages
+        run: |
+          mkdir -p _site/data
           cp dashboard.html _site/index.html
           cp rs.css rs_module.js _site/
+          cp data/*.json _site/data/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -35,5 +67,5 @@ jobs:
           path: _site
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
+
